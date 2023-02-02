@@ -1,14 +1,14 @@
-import { Home } from './components/pages/Home';
-import { Login } from './components/pages/Login';
-import { Register } from './components/pages/Register';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 import './style.scss';
 
 function App() {
   return (
     <div className="App">
-      {/* <Register />
-      <Login /> */}
-      <Home />
+      <Register />
+      {/* <Login />
+      <Home /> */}
     </div>
   );
 }
