@@ -9,7 +9,6 @@ export const SideBar = () => {
       <Navbar />
       <Search />
       <Chats />
-      <Chats />
     </div>
   );
 };

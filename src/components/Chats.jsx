@@ -21,19 +21,18 @@ export const Chats = () => {
     currentUser.uid && getChats();
   }, [currentUser.uid]);
 
-  console.log(chats);
   return (
     <div className="chats">
-      <div className="usersChats">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBgECtsr3QRWG5T442iYnsUuCFmnIOgJL6mQ&usqp=CAU"
-          alt=""
-        />
-        <div className="userChatInfo">
-          <span>Jack</span>
-          <p>Hello</p>
-        </div>
-      </div>
+      {chats &&
+        Object.entries(chats)?.map((chat) => (
+          <div className="usersChats" key={chat[0]}>
+            <img src={chat[1].userInfo.photoURL} alt="" />
+            <div className="userChatInfo">
+              <span>{chat[1].userInfo.displayName}</span>
+              <p>{chat[1].userInfo.lastMessage?.text}</p>
+            </div>
+          </div>
+        ))}
     </div>
   );
 };
