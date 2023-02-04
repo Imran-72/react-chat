@@ -10,11 +10,6 @@ export const SideBar = () => {
       <Search />
       <Chats />
       <Chats />
-      <Chats />
-      <Chats />
-      <Chats />
-      <Chats />
-      <Chats />
     </div>
   );
 };

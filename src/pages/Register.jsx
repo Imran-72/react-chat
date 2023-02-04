@@ -5,8 +5,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import AddAvatar from '../img/addAvatar.png';
 import { auth, db, storage } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
-
-// import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Register = () => {
   const [displayName, SetDisplayName] = useState('');
@@ -16,6 +15,8 @@ export const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   // const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const handleUserSubmit = async (e) => {
     e.preventDefault();
@@ -37,22 +38,23 @@ export const Register = () => {
               displayName,
               photoURL: downloadURL,
             });
-            //create user on firestore
+            // //create user on firestore
             await setDoc(doc(db, 'users', res.user.uid), {
               uid: res.user.uid,
               displayName,
               email,
               photoURL: downloadURL,
             });
+
+            await setDoc(doc(db, 'userChats', res.user.uid), {});
+            navigate('/');
           } catch (err) {
-            console.log(err);
+            console.log(err.message);
             setErr(true);
             setLoading(false);
           }
         });
       });
-
-      console.log(res.user);
     } catch (err) {
       const errorMessage = err.message;
       console.log(errorMessage);
@@ -98,7 +100,9 @@ export const Register = () => {
           {loading && 'Uploading and compressing the image please wait...'}
           {err && <span>Something went wrong</span>}
         </form>
-        <p>{/* You do have an account? <Link to="/register">Login</Link> */}</p>
+        <p>
+          You do have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
