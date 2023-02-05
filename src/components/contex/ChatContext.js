@@ -15,7 +15,7 @@ export const ChatContextProvider = ({ children }) => {
       case 'CHANGE_USER':
         return {
           user: action.payload,
-          chat:
+          chatId:
             currentUser.uid > action.payload.uid
               ? currentUser.uid + action.payload.uid
               : action.payload.uid + currentUser.uid,
@@ -26,5 +26,6 @@ export const ChatContextProvider = ({ children }) => {
   };
 
   const [state, dispatch] = useReducer(chatReducer, initialState);
+  console.log(state);
   return <ChatContext.Provider value={{ data: state, dispatch }}>{children}</ChatContext.Provider>;
 };
