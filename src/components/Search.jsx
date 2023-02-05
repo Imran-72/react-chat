@@ -12,12 +12,14 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { AuthContext } from './contex/AuthContext';
+import { ChatContext } from './contex/ChatContext';
 const Search = () => {
   const [username, setUsername] = useState('');
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
+  const { dispatch } = useContext(ChatContext);
 
   const handleSearch = async () => {
     const q = query(collection(db, 'users'), where('displayName', '==', username));
@@ -70,10 +72,11 @@ const Search = () => {
     } catch (err) {
       console.log(err.message);
     }
-
+    dispatch({ type: 'CHANGE_USER', payload: user.uid });
     setUser(null);
     setUsername('');
   };
+
   return (
     <div className="search">
       <div className="searchForm">
